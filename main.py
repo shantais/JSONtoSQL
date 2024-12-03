@@ -1,3 +1,4 @@
+import create_sql
 import identifier
 import parse
 import prompts
@@ -13,9 +14,7 @@ def program():
     # check if file was there to begin with and if not exit (nothing to work on)
     prompts.check_if_file_exists(journals_dict)
 
-    journals_dict_keys = list(journals_dict.keys())
-
-    for key in journals_dict_keys:
+    for idx, key in enumerate(list(journals_dict.keys())):
         journal_name = key
         journal_dict = journals_dict[key]
         volumes = parse.cut_out_volumes(journal_dict)
@@ -23,7 +22,9 @@ def program():
         articles = parse.cut_out_articles(issues)
         authors = parse.cut_out_authors(articles)
 
-
+        create_sql.journal_sql(journal_name, journal_dict)
+        create_sql.author_sql(authors)
+        # create_sql.issue_sql(idx, issues)
 
 
 if __name__ == '__main__':

@@ -45,7 +45,7 @@ def cut_out_articles(issues):
 def cut_out_authors(articles):
     authors = []
     for art in articles:
-        for key in list(art[0].kes()):
+        for key in list(art[0].keys()):
             if key == "titles":
                 pass
             elif key == "abstracts":
@@ -59,5 +59,6 @@ def cut_out_authors(articles):
             elif key == "pages":
                 pass
             else:
-                authors.append([art[0][key], art[1], art[2]])
+                # authors.append([art[0][key], art[1], art[2]])
+                authors.append(art[0][key])
     return authors
