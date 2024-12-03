@@ -31,14 +31,13 @@ def add(sql_line, file_name):
             f.write(sql_line)
 
 
-def read(file_name, sql_author_line):
-    author_id = 0
+def find_line(file_name, sql_line):
+    # basically looking for an id
     line_number = 0
     if os.path.exists(file_name):
         with open(file_name, mode="r", encoding="utf-8") as f:
             for idx, line in enumerate(f):
-                line_number = idx + 1
-                if line.strip() == sql_author_line:
-                    author_id = idx + 1
+                if line.strip() == sql_line:
+                    line_number = idx + 1
                     break
-    return author_id, line_number
+    return line_number
