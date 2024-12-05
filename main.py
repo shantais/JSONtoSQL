@@ -30,6 +30,7 @@ def program():
         for vol in volumes:
             # data from volume issues
             issues = parse.cut_out_issues(vol[0])
+            year = vol[0]["year"].strip()
 
             for issue_idx, issue in enumerate(issues):
 
@@ -39,13 +40,18 @@ def program():
 
                 # creating issue sql
                 if len(dates) == len(issues):
-                    date = dates[issue_idx] + vol[0]["year"].strip()
+                    date = dates[issue_idx] + year
                 elif len(dates) > len(issues):
-                    date = dates[issue_idx+(len(dates)-len(issues))] + vol[0]["year"].strip()
+                    if year != "2024":
+                        date = dates[issue_idx+(len(dates)-len(issues))] + year
+                    else:
+                        while len(dates)>len(issues):
+                            dates.pop(len(dates)-1)
+                        date = dates[issue_idx] + year
                 elif len(issues) % 2 != 0 and len(issues) != 1:
                     date = input(f"Please enter the date for {journal_name}, {vol[1]}, {issue[1]} [dd-mm-yyyy]:")
                 else:
-                    date = temp_dates[issue_idx] + vol[0]["year"].strip()
+                    date = temp_dates[issue_idx] + year
 
 
                 issue_id = create_sql.issue_sql(issue, vol, date, journal_id)

@@ -13,7 +13,7 @@ def journal_sql(journal_name, journal_dict):
 
 def issue_sql(issue, vol, date, journal_id):
     sql_issue_line = (f"INSERT INTO ISSUE(VOLUME_NAME, ISSUE_NAME, ISSUE_DOI, ISSUE_DATE, JOURNAL_ID) "
-                      f"VALUES (\'{vol[1]}\', \'{issue[1]}\', \'{issue[0]["doi"]}\', \'{date}\', \'{journal_id}\')")
+                      f"VALUES (\'{vol[1]}\', \'{issue[1]}\', \'{issue[0]["doi"]}\', \'{date}\', \'{journal_id}\');")
     file_name = "issues.txt"
     rw_file.add(sql_issue_line, file_name)
 
@@ -42,7 +42,7 @@ def article_sql(article, issue_id):
 
     sql_article_line = (f"INSERT INTO ARTICLE(TITLES, ABSTRACTS, KEYWORDS, REFERENCES, PAGES, ARTICLE_DOI, ISSUE_ID) "
                         f"VALUES (\'{titles}\', \'{abstracts}\', \'{keywords}\', "
-                        f"\'{references}\', \'{pages}\', \'{article["doi"]}\', \'{issue_id}\')")
+                        f"\'{references}\', \'{pages}\', \'{article["doi"]}\', \'{issue_id}\');")
     file_name = "articles.txt"
     rw_file.add(sql_article_line, file_name)
 
@@ -54,7 +54,7 @@ def author_sql(authors, article_id):
         for key in list(author.keys()):
             sql_author_line = (f"INSERT INTO AUTHOR(AUTHOR_NAME, E-MAIL, INSTITUTION, ORCID, ARTICLE_ID) "
                                f"VALUES (\'{author[key]}\', \'{author[key]["e-mail"]}\', \'{author[key]["institution"]}\', "
-                               f"\'{author[key]["orcid"]}\', \'{article_id}\')")
+                               f"\'{author[key]["orcid"]}\', \'{article_id}\');")
 
             file_name = "authors.txt"
             rw_file.add(sql_author_line, file_name)
